@@ -3,15 +3,24 @@ package br.unaerp.contatos
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ContactsAdapter(private val contactList: List<String>) : RecyclerView.Adapter<ContactsAdapter.ContactViewHolder>() {
+class ContactsAdapter(
+    private val contactList: List<String>,
+    private val onItemClickListener: (String) -> Unit
+    ) :
+    RecyclerView.Adapter<ContactsAdapter.ContactViewHolder>() {
 
-    class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun setInfo(contactName: String) {
+            val imgContact: ImageView = itemView.findViewById(R.id.imgContact)
             val tvContactName: TextView = itemView.findViewById(R.id.tvContactName)
             tvContactName.text = contactName
+            imgContact.setOnClickListener {
+                onItemClickListener(contactName)
+            }
         }
     }
 
