@@ -9,9 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ContactsAdapter(
     private val contactList: List<String>,
-    private val onItemClickListener: (String) -> Unit
+    private val contactClickListener: ContactClickListener
     ) :
     RecyclerView.Adapter<ContactsAdapter.ContactViewHolder>() {
+
+    interface ContactClickListener {
+        fun onItemClicked(item: String)
+    }
 
     inner class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun setInfo(contactName: String) {
@@ -19,7 +23,7 @@ class ContactsAdapter(
             val tvContactName: TextView = itemView.findViewById(R.id.tvContactName)
             tvContactName.text = contactName
             imgContact.setOnClickListener {
-                onItemClickListener(contactName)
+                contactClickListener.onItemClicked(contactName)
             }
         }
     }

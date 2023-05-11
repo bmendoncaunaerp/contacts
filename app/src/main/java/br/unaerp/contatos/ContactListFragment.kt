@@ -24,7 +24,7 @@ class ContactListFragment : Fragment() {
         rvContacts?.layoutManager = LinearLayoutManager(context)
         rvContacts?.adapter = ContactsAdapter(
             listOf("Bruno", "Felipe", "Ana"),
-            ::printContact
+            ContactClickListenerNavigate()
         )
     }
     private fun printContact(contact: String) {
@@ -33,5 +33,12 @@ class ContactListFragment : Fragment() {
             "Item clicado foi $contact",
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    inner class ContactClickListenerNavigate : ContactsAdapter.ContactClickListener {
+        override fun onItemClicked(item: String) {
+            printContact(item)
+        }
+
     }
 }
